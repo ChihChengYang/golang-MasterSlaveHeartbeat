@@ -6,7 +6,6 @@ import (
     "sync"
     "time"
     "strings"
-    //"crypto/rand"
 )
 
 //----------------------------
@@ -63,17 +62,7 @@ func (this *Callback) OnConnect(c *ConnecterConfig) bool {
 func (this *Callback) OnMessage(c *ConnecterConfig, p Packet) bool {
  
     packPacket := p.(*PackagePacket)
-/*
-    fmt.Printf("OnMessage:[%v] [%v] [%v]\n", packPacket.GetPackagePacketLength(),
-        packPacket.GetPackagePacketType(), string(packPacket.GetPackagePacketBody()))
-
-    if bytes.Equal(packPacket.GetPackagePacketBody(), []byte("bye")) {
-        fmt.Println("bye bye", c.GetExtraData())
-        return false
-    }
-
-    c.AsyncWritePacket(NewPackagePacket([]byte("welcome"), REQUEST_TYPE_CHECKSTATUS, false), time.Second)
-*/
+ 
     switch REQUESTTYPE(packPacket.GetPackagePacketType()) { 
 
         case REQUEST_TYPE_GETSESSION:  
@@ -154,17 +143,11 @@ func (s *Server) HealthReport(clientName string) {
     s.hc.HealthCheckDel(clientName)
   
     s.basic.config.Hb.HeartbeatBreak()
-
-   // fmt.Println("HC: HC ",clientName)
+ 
 }
 
 func (s *Server) StartUDP(listener *net.UDPConn) {
-   /* s.basic.waitGroup.Add(1)
-    defer func() {
-        listener.Close()
-        s.basic.waitGroup.Done()
-    }()
-*/
+ 
     buf := make([]byte, 1024)
     
     for {
@@ -174,9 +157,8 @@ func (s *Server) StartUDP(listener *net.UDPConn) {
 
         default:
         }
-
-        //n,_,err := listener.ReadFromUDP(buf)
-         n,addr,err := listener.ReadFromUDP(buf)
+ 
+        n,addr,err := listener.ReadFromUDP(buf)
        
         fmt.Println("Received ",string(buf[0:n]), " from ",addr)
  
@@ -185,11 +167,9 @@ func (s *Server) StartUDP(listener *net.UDPConn) {
         } 
         
         s.hc.HealthCheckAdd(string(buf[0:n]), addr.IP  ) 
-
          
     }
- 
-   
+  
 }
 
 func  StartTCP_File_R(listener *net.TCPListener) {
@@ -238,10 +218,8 @@ func (s *Server) StartTCP_Heartbeat(listener *net.TCPListener) {
         listener.Close()
     }()
 
- 
     for {
  
-
         conn, err := listener.AcceptTCP()
         if err != nil {
             continue
@@ -249,7 +227,6 @@ func (s *Server) StartTCP_Heartbeat(listener *net.TCPListener) {
  
         reply := make([]byte, 4)
         conn.Read(reply)
-   
  
         _, err2 := conn.Write([]byte("1"))
         if err2 != nil {
@@ -330,7 +307,6 @@ func ServerService(config *Config) {
         var hc HealthCheck        
         srv.hc = &hc          
         go srv.hc.HealthCheckRun(srv, 5)    
-
 //-------------------------------
     
     default:    

@@ -11,12 +11,8 @@ import (
     "path/filepath" 
     "strings"   
     "io" 
-    //"log" 
     "errors"
-
     "path"
-    //"path/filepath" 
-
     "encoding/json"  
 )
 
@@ -47,7 +43,7 @@ func MD5(ph string) string {
 }
  
 func Finger(h hash.Hash, ph string) string {
-  // 打开文件
+ 
   f, err := os.Open(ph)
   if err != nil {
     return ""

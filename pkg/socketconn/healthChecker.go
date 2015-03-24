@@ -1,6 +1,5 @@
 package socketconn
  
-
 import (
     "time"
     "fmt"
@@ -25,13 +24,9 @@ func (h *HealthCheck) HealthCheckRun(hr HealthReporter, setOvertime int64){
     var timeNow int64
     for{
         time.Sleep(1000 * time.Millisecond)
-        
         timeNow = time.Now().Unix()
-                    
         for key, value := range h.ClientMap {
-           // fmt.Println("Key:", key, "Value:", value)
             diff := timeNow - value.time
-
             if diff > setOvertime{
                 hr.HealthReport(key)
             }            

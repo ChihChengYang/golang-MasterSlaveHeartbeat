@@ -12,7 +12,6 @@ import (
    
     "fmt"
     "crypto/rand"
-    //"io"
 )
 
 type SERVICETYPE uint16
@@ -255,11 +254,7 @@ func (this *PackagePacket) GetPackagePacketType() uint16 {
 func (this *PackagePacket) GetPackagePacketBody() []byte {
     return this.buffer[6:]
 }
-
-/*每個數據包的組成： 包長 + 類型 + 數據
-–> 4字節 + 2字節 + 數據
-–> uint32 + uint16 + []byte
-*/
+ 
 func NewPackagePacket(buffer []byte, req REQUESTTYPE,  lenFieldFlag bool) *PackagePacket {
     pac := &PackagePacket{}
 

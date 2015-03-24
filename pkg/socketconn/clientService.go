@@ -5,7 +5,6 @@ import (
     "net"
     "time"
     "strings"
-   // "strconv"
 )
 
 type ClientConfig struct {
@@ -39,19 +38,13 @@ func ( clientConfig *ClientConfig) ClientServiceGetSession() string {
 } 
 
 func ( clientConfig *ClientConfig) csHeartbeat(mark string){
-   
-    //i := 0
+ 
     for {
-        // msg := strconv.Itoa(i)
-       // i++
-     
         buf := []byte(mark)
         _,err := clientConfig.connUDP.Write(buf)
         if err != nil {
             fmt.Println(mark, err)
         }
-  
-
         time.Sleep(time.Second * 1)
     }
 
