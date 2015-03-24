@@ -13,9 +13,11 @@ Usage
  golang-MasterSlaveHeartbeat\pkg\backuper
  golang-MasterSlaveHeartbeat\pkg\socketconn
 ~~~
+~~~
   SlaveTableAdd("127.0.0.1:8088" , "UUID")   
-  ...
+  
   go build socketconnMaster.go
+~~~
 ~~~
   go build socketconnSlave.go
 ~~~
